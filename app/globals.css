@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.range{
+    --range-shdw: #3B82F6;
+}
+
+.checkbox:checked, .checkbox[checked="true"], .checkbox[aria-checked="true"] {
+    background-repeat: no-repeat;
+    animation: checkmark var(--animation-input, 0.2s) ease-out;
+    background-color: #3B82F6;
+    background-image: linear-gradient(-45deg, transparent 65%, #3B82F6 65.99%),
+      linear-gradient(45deg, transparent 75%, #3B82F6 75.99%),
+      linear-gradient(-45deg, #3B82F6 40%, transparent 40.99%),
+      linear-gradient(
+        45deg,
+        #3B82F6 30%,
+        white 30.99%,
+        white 40%,
+        transparent 40.99%
+      ),
+      linear-gradient(-45deg, white 50%, #3B82F6 50.99%);
+}
+body {
+  padding-top: 6rem; /* 24 * 0.25rem = 6rem for h-24 */
+}
+
+/* For mobile responsive */
+@media (max-width: 1023px) {
+  body {
+    padding-top: 12rem; /* 48 * 0.25rem = 12rem for max-lg:h-48 */
+  }
+}
+.custom-checkbox {
+  accent-color: #e0e3e9; /* Blue color */
+}
+
+/* Custom range slider styling */
+.custom-range {
+  accent-color: #ebf4f1; /* Green color */
+}
+
+.custom-range::-webkit-slider-thumb {
+  background-color: #eef5f3;
+}
+
+.custom-range::-moz-range-thumb {
+  background-color: hsl(156, 18%, 89%);
+  border: none;
+}

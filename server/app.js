@@ -25,6 +25,20 @@ app.use(
 );
 app.use(fileUpload());
 
+// Handle HEAD requests quickly (important for Render)
+app.use((req, res, next) => {
+  if (req.method === 'HEAD') {
+    res.status(200).end();
+    return;
+  }
+  next();
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/images", productImagesRouter);
@@ -36,8 +50,12 @@ app.use('/api/order-product', orderProductRouter);
 app.use("/api/slugs", slugRouter);
 app.use("/api/wishlist", wishlistRouter);
 
-
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+//Binded  to 0.0.0.0 and use PORT from environment
+const PORT = process.env.PORT || 10000; // Changed default to 10000
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// timeout configurations for Render
+server.keepAliveTimeout = 120000; // 120 seconds
+server.headersTimeout = 120000;   // 120 seconds
